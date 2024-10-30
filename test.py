@@ -28,21 +28,18 @@ f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + '\n')
 
 # Case 1
 unitPriceType = tracksOutput.dtypes['UnitPrice']
-if unitPriceType == 'int64':
+if unitPriceType == 'float64':
     f.write("Case 1: Pass\n")
 else:
     f.write("Case 1: Fail\n")
 
 # Case 2
 mergedTracks = pd.merge(tracksInput, tracksOutput, on='TrackId', suffixes=('_input', '_output'))
-if (mergedTracks['UnitPrice_output'] - mergedTracks['UnitPrice_input'] >= 33).all():
+# if (mergedTracks['UnitPrice_output'] - mergedTracks['UnitPrice_input'] >= 33).all():
+if (mergedTracks['UnitPrice_output'] / mergedTracks['UnitPrice_input'] == 33.77).all():
     f.write("Case 2: Pass\n")
 else:
     f.write("Case 2: Fail\n")
 
 # close test result file
 f.close()
-
-# COMMAND ----------
-
-mergedTracks
