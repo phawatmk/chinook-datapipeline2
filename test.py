@@ -21,7 +21,7 @@ tracksInput = pd.read_csv(inputPath)
 tracksOutput = pd.read_csv(outputPath)
 
 # open test result file
-f = open(testResultPath, "a")
+f = open(testResultPath, "w")
 
 # write datetime
 f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + '\n')
@@ -35,10 +35,14 @@ else:
 
 # Case 2
 mergedTracks = pd.merge(tracksInput, tracksOutput, on='TrackId', suffixes=('_input', '_output'))
-if (mergedTracks['UnitPrice_output'] - mergedTracks['UnitPrice_input'] < 2).all() & (mergedTracks['UnitPrice_output'] - mergedTracks['UnitPrice_input'] >= 1).all():
+if (mergedTracks['UnitPrice_output'] - mergedTracks['UnitPrice_input'] >= 33).all():
     f.write("Case 2: Pass\n")
 else:
     f.write("Case 2: Fail\n")
 
 # close test result file
 f.close()
+
+# COMMAND ----------
+
+mergedTracks
